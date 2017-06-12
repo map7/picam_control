@@ -1,0 +1,16 @@
+<h1>PICAM Control</h1>
+
+Welcome to PICAM control here is where you can remotely control the recording of the camera.
+
+<br />
+<br />
+<div>
+  Running: <b><%= @running %></b>
+</div>
+
+<br />
+<div>
+  <form method="get" action="/<%= @action %>">
+    <button><%= @action %> Recording</button>
+  </form>
+</div>

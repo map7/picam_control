@@ -1,0 +1,4 @@
+* picam control
+
+This program will allow me to start and top the recordings remotely.
+

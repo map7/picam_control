@@ -1,13 +1,16 @@
 require 'sinatra'
 require 'sinatra/flash'
 
+# Listen on all interfaces in the development environment
+set :bind, '0.0.0.0'
+
 enable :sessions
 
-BASE_DIR = "#{ENV['HOME']}/picam/hooks"
+BASE_DIR = "#{ENV['HOME']}/picam"
 
 get '/' do
-  @running = File.exist?("#{BASE_DIR}/start_record")
-  if @running
+  @running = File.readlines("#{BASE_DIR}/state/record")[0]
+  if @running == "true"
     @action = "stop"
   else    
     @action = "start"
@@ -38,13 +41,14 @@ end
 
 get '/start' do 
   flash[:info] = "Recording started"
-  `touch #{BASE_DIR}/start_record`
+  `touch #{BASE_DIR}/hooks/start_record`
   redirect "/"
 end
 
 get '/stop' do
   flash[:info] = "Recording stopped"
-  `touch #{BASE_DIR}/stop_record`
+  `touch #{BASE_DIR}/hooks/stop_record`
+  sleep 2
   redirect "/"
 end
 

@@ -48,7 +48,7 @@ end
 get '/stop' do
   flash[:info] = "Recording stopped"
   `touch #{BASE_DIR}/hooks/stop_record`
-  sleep 2
+  sleep 0.5
   redirect "/"
 end
 

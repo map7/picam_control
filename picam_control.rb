@@ -1,10 +1,10 @@
 require 'sinatra'
 require 'byebug'
 
-BASE_DIR = "#{ENV['HOME']}/picam"
+BASE_DIR = "#{ENV['HOME']}/picam/hooks"
 
 get '/' do
-  @running = File.exist?("#{BASE_DIR}/hooks/start_record")
+  @running = File.exist?("#{BASE_DIR}/start_record")
   if @running
     @action = "stop"
   else    
@@ -15,12 +15,12 @@ get '/' do
 end
 
 get '/start' do 
-  `touch #{BASE_DIR}/hooks/start_record`
+  `touch #{BASE_DIR}/start_record`
   redirect "/"
 end
 
 get '/stop' do
-  `touch #{BASE_DIR}/hooks/stop_record`
+  `touch #{BASE_DIR}/stop_record`
   redirect "/"
 end
 

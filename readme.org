@@ -2,3 +2,10 @@
 
 This program will allow me to start and top the recordings remotely.
 
+** Installation
+
+: gem install sinatra sinatra-flash thin
+
+** Running
+
+: ruby picam_control.rb

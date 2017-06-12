@@ -1,3 +1,7 @@
+<link href="<%= url('/css/style.css') %>" rel="stylesheet" type="text/css" />
+
+<div class="notify"><%= styled_flash %></div>
+
 <h1>PICAM Control</h1>
 
 Welcome to PICAM control here is where you can remotely control the recording of the camera.
@@ -6,6 +10,37 @@ Welcome to PICAM control here is where you can remotely control the recording of
 <br />
 <div>
   Running: <b><%= @running %></b>
+</div>
+
+<br />
+<div>
+  <form method="get" action="/restart_nginx">
+    <button>Restart Nginx</button>
+  </form>
+</div>
+
+<br />
+<div>
+  <form method="get" action="/start_picam">
+    <table>
+      <tr>
+        <td>Width:</td>
+        <td><input type="text" name="width" value="1280"></td>
+      </tr>
+
+      <tr>
+        <td>Height:</td>
+        <td><input type="text" name="height" value="720"></td>
+      </tr>
+
+      <tr>
+        <td>Fps:</td>
+        <td><input type="text" name="fps" value="25"></td>
+      </tr>
+    </table>
+    
+    <button>Start PICAM</button>
+  </form>
 </div>
 
 <br />

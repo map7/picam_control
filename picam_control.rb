@@ -41,6 +41,12 @@ get '/start_picam' do
   redirect "/"
 end
 
+get '/stop_picam' do 
+  `pkill -f 'picam --tcpout'`
+  flash[:info] = "PICAM stopped"
+  redirect "/"
+end
+
 get '/start' do 
   flash[:info] = "Recording started"
   `touch #{BASE_DIR}/hooks/start_record`
@@ -50,7 +56,7 @@ end
 get '/stop' do
   flash[:info] = "Recording stopped"
   `touch #{BASE_DIR}/hooks/stop_record`
-  sleep 0.5
+  sleep 1
   redirect "/"
 end
 

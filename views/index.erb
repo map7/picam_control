@@ -23,7 +23,7 @@ Welcome to PICAM control here is where you can remotely control the recording of
 
 <br />
 <div>
-  <form method="get" action="/start_picam">
+  <form method="get">
     <table>
       <tr>
         <td>Width:</td>
@@ -41,13 +41,9 @@ Welcome to PICAM control here is where you can remotely control the recording of
       </tr>
     </table>
     
-    <button>Start PICAM</button>
-  </form>
-</div>
-
-<div>
-  <form method="get" action="/stop_picam">
-    <button>Stop PICAM</button>
+    <button type="submit" formaction="/start_picam_live">Start PICAM LIVE</button>
+    <button type="submit" formaction="/start_picam">Start PICAM</button>
+    <button type="submit" formaction="/stop_picam">Stop PICAM</button>
   </form>
 </div>
 

@@ -9,11 +9,13 @@ enable :sessions
 BASE_DIR = "#{ENV['HOME']}/picam"
 
 get '/' do
-  @running = File.readlines("#{BASE_DIR}/state/record")[0]
-  if @running == "true"
-    @action = "stop"
-  else    
-    @action = "start"
+  if File.exist? "#{BASE_DIR}/state/record"
+    @running = File.readlines("#{BASE_DIR}/state/record")[0]
+    if @running == "true"
+      @action = "stop"
+    else    
+      @action = "start"
+    end
   end
 
   erb :index

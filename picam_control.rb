@@ -6,7 +6,7 @@ set :bind, '0.0.0.0'
 
 enable :sessions
 
-BASE_DIR = "#{ENV['HOME']}/picam"
+BASE_DIR = "/home/pi/picam"
 
 get '/' do
   if File.exist? "#{BASE_DIR}/state/record"
@@ -27,13 +27,27 @@ get '/restart_nginx' do
   redirect "/"
 end
 
+get '/start_picam_live' do
+  width = params[:width].to_i
+  height = params[:height].to_i
+  fps=params[:fps].to_i
+
+  if File.exist?("/home/pi/picam")
+    `cd /home/pi/picam;./picam --alsadev hw:1,0 --tcpout tcp://127.0.0.1:8181 -w #{width} -h #{height} --fps #{fps}`
+    flash[:info] = "PICAM started #{width}x#{height}@#{fps}"
+  else
+    flash[:warning] = "PICAM doesn't exist!"
+  end
+  redirect "/"
+end
+
 get '/start_picam' do
   width = params[:width].to_i
   height = params[:height].to_i
   fps=params[:fps].to_i
 
-  if File.exist?("#{ENV['HOME']}/picam")
-    `cd #{ENV['HOME']}/picam;./picam --tcpout tcp://127.0.0.1:8181 --alsadev hw:1,0 -w #{width} -h #{height} --fps #{fps}`
+  if File.exist?("/home/pi/picam")
+    `cd /home/pi/picam;./picam --alsadev hw:1,0 -w #{width} -h #{height} --fps #{fps}`
     flash[:info] = "PICAM started #{width}x#{height}@#{fps}"
   else
     flash[:warning] = "PICAM doesn't exist!"
@@ -42,7 +56,7 @@ get '/start_picam' do
 end
 
 get '/stop_picam' do 
-  `pkill -f 'picam --tcpout'`
+  `pkill -f 'picam --alsa'`
   flash[:info] = "PICAM stopped"
   redirect "/"
 end
